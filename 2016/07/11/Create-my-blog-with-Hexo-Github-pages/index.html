@@ -24,7 +24,7 @@
 <meta property="og:description" content="决定建一个自己的博客是源于在网易实习期间，参加转正面试时，被询问是否有些博客的习惯。当时面试官说了这么一句：写博客并不是写给别人看的，而是对自己学习经历的一个总结与思考。我十分赞同。虽然自己之前也有在CSDN上写博客，但是体验不怎么好，没有坚持下去，平时更多的是写看书笔记。当我第一次看到github pages的时候，感觉终于找到了我要的东西了，下面就分享一下我搭建博客的过程吧。
 之所以选择这种">
 <meta property="og:image" content="http://static.oschina.net/uploads/img/201508/31234444_MQDA.png">
-<meta property="og:updated_time" content="2016-08-16T04:38:46.202Z">
+<meta property="og:updated_time" content="2016-08-16T04:43:39.973Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Create my blog with Hexo && Github.pages">
 <meta name="twitter:description" content="决定建一个自己的博客是源于在网易实习期间，参加转正面试时，被询问是否有些博客的习惯。当时面试官说了这么一句：写博客并不是写给别人看的，而是对自己学习经历的一个总结与思考。我十分赞同。虽然自己之前也有在CSDN上写博客，但是体验不怎么好，没有坚持下去，平时更多的是写看书笔记。当我第一次看到github pages的时候，感觉终于找到了我要的东西了，下面就分享一下我搭建博客的过程吧。
@@ -229,9 +229,9 @@
 <h2 id="安装自动部署到GitHub的插件"><a href="#安装自动部署到GitHub的插件" class="headerlink" title="安装自动部署到GitHub的插件"></a>安装自动部署到GitHub的插件</h2><p>在初始化博客的时候运行的npm install命令默认并没有安装这个插件，所以要手动安装。<br>运行以下命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-deployer-git</div></pre></td></tr></table></figure>
 <p>修改位于E:\Hexo目录下的<code>_config.yml</code>文件<br>找到以下内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># Deployment</div><div class="line">## Docs: http://hexo.io/docs/deployment.html</div><div class="line"> deploy:</div><div class="line">	   type:</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># Deployment</div><div class="line">## Docs: http://hexo.io/docs/deployment.html</div><div class="line">deploy:</div><div class="line"> type:</div></pre></td></tr></table></figure>
 <p>修改为</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">`<span class="comment"># Deployment</span></div><div class="line">`<span class="comment">## Docs: http://hexo.io/docs/deployment.html</span></div><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: git</div><div class="line">  repository: https://github.com/<span class="built_in">echo</span>-linsq/<span class="built_in">echo</span>-linsq.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># Deployment</div><div class="line">## Docs: http://hexo.io/docs/deployment.html</div><div class="line">deploy:</div><div class="line">    type: git</div><div class="line">    repository: https://github.com/echo-linsq/echo-linsq.github.io.git</div><div class="line">    branch: master</div></pre></td></tr></table></figure>
 <p>Repository是自己github page的项目地址</p>
 <h2 id="运行hexo-deploy命令"><a href="#运行hexo-deploy命令" class="headerlink" title="运行hexo deploy命令"></a>运行hexo deploy命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
 <p>过程中会提示输入你的github账号和密码，等待命令运行完成即可。部署完成后，在浏览器中访问<a href="http://echo-linsq.github.io/">http://echo-linsq.github.io/</a> 能够看到你在本地调试好的博客，表示部署成功！</p>
