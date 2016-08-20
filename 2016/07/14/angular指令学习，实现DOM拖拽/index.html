@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Angular指令学习，自定义指令实现DOM拖拽 | EchoLinn&#39;Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Angular,Angular指令," />
+  
+
+  <meta name="description" content="angular指令——my-drag这篇文章主要是用angularjs创建一个指令实现拖拽效果，感兴趣的小伙伴们可以参考一下
+&amp;lt;!DOCTYPE HTML&amp;gt;&amp;lt;html ng-app=&quot;myApp&quot;&amp;gt;&amp;lt;head&amp;gt;    &amp;lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&amp;gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular指令学习，自定义指令实现DOM拖拽">
+<meta property="og:url" content="http://echo-linsq.github.io/2016/07/14/angular指令学习，实现DOM拖拽/index.html">
+<meta property="og:site_name" content="EchoLinn'Blog">
+<meta property="og:description" content="angular指令——my-drag这篇文章主要是用angularjs创建一个指令实现拖拽效果，感兴趣的小伙伴们可以参考一下
+&amp;lt;!DOCTYPE HTML&amp;gt;&amp;lt;html ng-app=&quot;myApp&quot;&amp;gt;&amp;lt;head&amp;gt;    &amp;lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&amp;gt;">
+<meta property="og:updated_time" content="2016-08-19T02:47:21.834Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular指令学习，自定义指令实现DOM拖拽">
+<meta name="twitter:description" content="angular指令——my-drag这篇文章主要是用angularjs创建一个指令实现拖拽效果，感兴趣的小伙伴们可以参考一下
+&amp;lt;!DOCTYPE HTML&amp;gt;&amp;lt;html ng-app=&quot;myApp&quot;&amp;gt;&amp;lt;head&amp;gt;    &amp;lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&amp;gt;">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">霜巧</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">霜巧</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/project/"
+            target="_self"
+            >
+            项目
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#angular指令——my-drag"><span class="toc-text">angular指令——my-drag</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-angular指令学习，实现DOM拖拽" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Angular指令学习，自定义指令实现DOM拖拽</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.07.14</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>霜巧</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Angular/">Angular</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.echolinn.com/2016/07/14/angular指令学习，实现DOM拖拽/#disqus_thread"></a>
+        </span>
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="angular指令——my-drag"><a href="#angular指令——my-drag" class="headerlink" title="angular指令——my-drag"></a>angular指令——my-drag</h1><p>这篇文章主要是用angularjs创建一个指令实现拖拽效果，感兴趣的小伙伴们可以参考一下</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;!DOCTYPE HTML&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">ng-app</span>=<span class="string">"myApp"</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>自定义指令实现拖拽<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">    #div1 &#123;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">        background: red;</div><div class="line">        position: absolute;</div><div class="line">    &#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"jquery-1.11.1.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"angular.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="xml"></span></div><div class="line">    var m1 = angular.module('myApp', []);</div><div class="line">    m1.directive('myDrag', function() &#123;</div><div class="line">        return &#123;</div><div class="line">            restrict: 'A',</div><div class="line">            link: function(scope, element, attr) &#123;</div><div class="line"></div><div class="line">                var disX = 0;</div><div class="line">                var disY = 0;</div><div class="line">                //console.log(typeof attr.myDrag);</div><div class="line">                attr.myDrag = angular.equals(attr.myDrag, 'true');</div><div class="line"></div><div class="line">                element.on('mousedown', function(ev) &#123;</div><div class="line">                    var This = this;</div><div class="line">                    disX = ev.pageX - $(this).offset().left;</div><div class="line">                    disY = ev.pageY - $(this).offset().top;</div><div class="line"></div><div class="line">                    if (attr.myDrag) &#123;</div><div class="line">                        var $line = $('<span class="tag">&lt;<span class="name">div</span>&gt;</span>');</div><div class="line">                        $line.css(&#123;</div><div class="line">                            width: $(this).outerWidth(),</div><div class="line">                            height: $(this).outerHeight(),</div><div class="line">                            position: 'absolute',</div><div class="line">                            left: $(this).offset().left,</div><div class="line">                            top: $(this).offset().top,</div><div class="line">                            border: '1px gray dotted'</div><div class="line">                        &#125;);</div><div class="line">                        $('body').append($line);</div><div class="line">                    &#125;</div><div class="line"></div><div class="line">                    $(document).on('mousemove', function(ev) &#123;</div><div class="line">                        if (attr.myDrag) &#123;</div><div class="line">                            $line.css('left', ev.pageX - disX);</div><div class="line">                            $line.css('top', ev.pageY - disY);</div><div class="line">                        &#125; else &#123;</div><div class="line">                            $(This).css('left', ev.pageX - disX);</div><div class="line">                            $(This).css('top', ev.pageY - disY);</div><div class="line">                        &#125;</div><div class="line">                    &#125;);</div><div class="line">                    $(document).on('mouseup', function() &#123;</div><div class="line">                        $(document).off();</div><div class="line">                        if (attr.myDrag) &#123;</div><div class="line">                            $(This).css('left', $line.offset().left);</div><div class="line">                            $(This).css('top', $line.offset().top);</div><div class="line">                            $line.remove();</div><div class="line">                        &#125;</div><div class="line">                    &#125;);</div><div class="line">                    return false;</div><div class="line">                &#125;);</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    m1.controller('Aaa', ['$scope', function($scope) &#123;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;]);</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-controller</span>=<span class="string">"Aaa"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"div1"</span> <span class="attr">my-drag</span>=<span class="string">"false"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><a href="http://codepen.io/echo_linsq/pen/qNwagY?editors=1111" target="_blank" rel="external">Demo</a></p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project/"
+              target="_self"
+              >
+              项目
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'http://echo-linsq.github.io/2016/07/14/angular指令学习，实现DOM拖拽/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
