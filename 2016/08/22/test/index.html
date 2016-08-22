@@ -7,24 +7,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>test | EchoLinn&#39;Blog</title>
+  <title>移动端非HTTPS的防劫持方式 | EchoLinn&#39;Blog</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="echolinn,前端,设计,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript,css3,html5" />
+    <meta name="keywords" content="防劫持," />
   
 
-  <meta name="description" content="考拉移动端自上线起，就受到运营商Wap劫持，H5页面会被插入各种广告、弹窗等。最初采用收集相关信息，通过SA来投诉运营商；但是经过一段时间后，没有什么明显成效，反而随着用户量的增多">
+  <meta name="description" content="考拉移动端自上线起，就受到运营商Wap劫持，H5页面会被插入各种广告、弹窗等。最初采用收集相关信息，通过SA来投诉运营商；但是经过一段时间后，没有什么明显成效，反而随着用户量的增多，反馈劫持更多，而且部分被植入了低俗黄色内容，非常影响用户浏览和购买。
+通过安全组了解到，运营商劫持方式主要包括了HTML、JS、302、图片、DNS等，劫持方式和手段有多种。一般来讲，只有通过HTTPS才能根治大部分劫">
 <meta property="og:type" content="article">
-<meta property="og:title" content="test">
+<meta property="og:title" content="移动端非HTTPS的防劫持方式">
 <meta property="og:url" content="http://echo-linsq.github.io/2016/08/22/test/index.html">
 <meta property="og:site_name" content="EchoLinn'Blog">
-<meta property="og:description" content="考拉移动端自上线起，就受到运营商Wap劫持，H5页面会被插入各种广告、弹窗等。最初采用收集相关信息，通过SA来投诉运营商；但是经过一段时间后，没有什么明显成效，反而随着用户量的增多">
-<meta property="og:updated_time" content="2016-08-22T01:40:19.306Z">
+<meta property="og:description" content="考拉移动端自上线起，就受到运营商Wap劫持，H5页面会被插入各种广告、弹窗等。最初采用收集相关信息，通过SA来投诉运营商；但是经过一段时间后，没有什么明显成效，反而随着用户量的增多，反馈劫持更多，而且部分被植入了低俗黄色内容，非常影响用户浏览和购买。
+通过安全组了解到，运营商劫持方式主要包括了HTML、JS、302、图片、DNS等，劫持方式和手段有多种。一般来讲，只有通过HTTPS才能根治大部分劫">
+<meta property="og:updated_time" content="2016-08-22T01:50:38.007Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
-<meta name="twitter:description" content="考拉移动端自上线起，就受到运营商Wap劫持，H5页面会被插入各种广告、弹窗等。最初采用收集相关信息，通过SA来投诉运营商；但是经过一段时间后，没有什么明显成效，反而随着用户量的增多">
+<meta name="twitter:title" content="移动端非HTTPS的防劫持方式">
+<meta name="twitter:description" content="考拉移动端自上线起，就受到运营商Wap劫持，H5页面会被插入各种广告、弹窗等。最初采用收集相关信息，通过SA来投诉运营商；但是经过一段时间后，没有什么明显成效，反而随着用户量的增多，反馈劫持更多，而且部分被植入了低俗黄色内容，非常影响用户浏览和购买。
+通过安全组了解到，运营商劫持方式主要包括了HTML、JS、302、图片、DNS等，劫持方式和手段有多种。一般来讲，只有通过HTTPS才能根治大部分劫">
 
   
 
@@ -144,7 +147,7 @@
 <div class="content content-post CENTER">
    <article id="post-test" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">test</h1>
+    <h1 class="post-title">移动端非HTTPS的防劫持方式</h1>
 
     <div class="article-meta">
       <span>
@@ -160,6 +163,11 @@
       
 
       
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/前端安全/">前端安全</a>
+  </span>
+
 
 
       
@@ -174,7 +182,36 @@
 
   <div class="article-content">
     
-      <p> 考拉移动端自上线起，就受到运营商Wap劫持，H5页面会被插入各种广告、弹窗等。最初采用收集相关信息，通过SA来投诉运营商；但是经过一段时间后，没有什么明显成效，反而随着用户量的增多</p>
+      <p>考拉移动端自上线起，就受到运营商Wap劫持，H5页面会被插入各种广告、弹窗等。最初采用收集相关信息，通过SA来投诉运营商；但是经过一段时间后，没有什么明显成效，反而随着用户量的增多，反馈劫持更多，而且部分被植入了低俗黄色内容，非常影响用户浏览和购买。</p>
+<p>通过安全组了解到，运营商劫持方式主要包括了HTML、JS、302、图片、DNS等，劫持方式和手段有多种。一般来讲，只有通过HTTPS才能根治大部分劫持问题。但是全站HTTPS是一个成本较高的工作，涉及到方方面面，不是一个简单的加密工作；短期内也无法直接上线。在常规手段无法立即生效的情况下，又要能够尽快降低劫持对用户的影响，除了继续投诉运营商，我们还需要找到其他一些临时的解决方法。</p>
+<p>因为劫持是发生在H5页面，最早期的想法是在页面完成加载后、在页面显示前，启动一段特殊自检脚本，将页面中存在问题的节点加以分析和移除。和Wap端开发同事沟通后，主要困难在于H5本身的节点难以统一形成一个自我区别的标示，自检脚本的运行时机也不太容易确定，总之开发成本较高，而且如果自检脚本运行时机不对，不会有任何效果。后续Wap端开发同事采用了CSP内容安全策略（参考 使用CSP阻止运营商插入广告 ），用于阻止外域的劫持加载。CSP浏览器支持方面iOS端是8.1开始，Android是4.4开始，存在支持范围。其主要问题依然在于传输本身是明文的，运营商再流氓点，将CSP头修改或者移除后，依然可以完成相关劫持，起不到任何防范作用。另外CSP本身也无法对HTML、JS内容篡改做处理，因为其本身是符合CSP的策略，只是内容被替换了。</p>
+<p>综上所述，根本性的解决办法仍然只有一个，那就是加密或者自定义通讯协议。于是问题似乎又回到了老路上，需要HTTPS。但是HTTPS只是加密或者自定义通讯协议的一种方式，不用HTTPS我们也可以实现；唯一的问题就是，如何让浏览器认识这个加密或者自定义通讯协议。也就是说，HTTPS是业界配给浏览器标准加密通讯方式，如果我们使用一些野路子的通讯方式，浏览器是不会认识的，变成了无法处理的内容。分析到了这里，我们的问题又转化成如何让浏览器认识我们自己加密的内容。移动端iOS这块答案已经呼之或出，就是NSProtocol。 另外一种方式就是App将加密的内容自行下载下来，然后解密好后使用浏览器渲染（目前Android端就采用了这种方式）。</p>
+<p>NSProtocol这边我就不做累述，具体网上搜索就有一大把，相当于在网络请求中增加了一个中间人。使用NSProtocol而不是采用App自行下载加密内容的方式，主要是切入方便，不会影响具体业务开发，也不会存在跨域问题。考拉在使用NSProtocol的主要方案如下：</p>
+<ol>
+<li><p>目前只是对HTML内容劫持做了JSON格式处理（也可以做加密）</p>
+</li>
+<li><p>客户端在需要HTML内容JSON格式化的请求中，增加一个头标示</p>
+</li>
+<li><p>服务端在收到这请求后，自行决定是否需要将内容JSON化（开关设置在服务端），如果需要，JSON化后返回内容，在返回头中增加一个头标示</p>
+</li>
+<li><p>这里需要注意一点，一般来讲HTML本身是不太需要客户端缓存，如果需要缓存，那么NSProtocol这块需要做相应的处理。考拉是服务端做了Varnish缓存和部分内容静态化，其中静态化的HTML需要针对特殊头标示返回不同的内容。</p>
+</li>
+<li><p>在客户端收到服务端返回后，如果发现服务端响应了JSON格式头标示，就需要自己新建一个NSHTTPURLResponse，将之前的application/json替换为text/html</p>
+</li>
+<li><p>将接收到的NSData缓存在本地，当完成所有NSData接收后，把JSON对象反序列化，生成正常的HTML内容。</p>
+</li>
+<li><p>由于一般不对HTML内容做本地缓存，在请求时使用[[NSURLCache sharedURLCache] removeCachedResponseForRequest:request]，将缓存清理掉。（这里主要和NSProtocol中缓存策略实现有关系，在实际测试过程中，即使NSProtocol没有实现缓存，在webview调用goback时，偶尔会出现拿到原始的内容情况，不是必现，怀疑是直接从NSCache中获取，具体还需要验证）</p>
+</li>
+</ol>
+<p>这样不借用HTTPS，也完成了对HTML内容加密的传输，之前提到的CSP明文问题，也可以通过这种方式，将相关CSP内容加密后加入特殊头中，客户端收到Response头后，解密后重新设置CSP头，也就避免了CSP被篡改的可能。</p>
+<p>目前考拉只是对HTML内容作了特殊处理，对于JS劫持还没有做相关处理。JS主要涉及了CDN和本地缓存问题，针对CDN缓存，只能生成不同JS链接和内容，这样就需要Wap端做两件事情：</p>
+<ol>
+<li><p>在HTML端使用特殊的JS链接</p>
+</li>
+<li><p>针对不同的特殊链接，生成两种格式的内容，存放到CDN这个工作量总体还好，但是涉及的范围比较多。客户端这边处理流程和HTML类似，不过需要加上相关缓存处理。后期视劫持反馈情况，也可以加上对JS的处理。至于其他302、DNS等劫持，已经不再是HTTP协议层面的内容劫持，需要另外处理。</p>
+</li>
+</ol>
+<p>总之，在全站HTTPS还无法及时上线的时候，通过加密或自定义的通讯方式，同时结合CSP，可以有效的控制运营商的内容劫持，达到使用较低成本解决劫持的目的，是一种较为灵活的解决方案。</p>
 
     
   </div>
