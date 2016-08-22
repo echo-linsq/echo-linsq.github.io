@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用CSP阻止运营商插入广告 | EchoLinn&#39;Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="浏览器,防篡改," />
+  
+
+  <meta name="description" content="1. 问题背景从2015年底开始，频繁发现考拉的WAP站点遭到篡改，服务端返回的网页被篡改并插入广告，部分广告还不堪入目，中国移动的4G网络还会直接插入其客服入口到页面底部，弹出App下载等，更有甚者直接替换js内容，导致页面工作不正常。
+从篡改的方式来看，大部分属于如下几种：
+
+在页面底部插入script标签引入广告js
+直接插入广告内容到页面
+劫持正常js请求，返回广告内容js
+
+近两年百度，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用CSP阻止运营商插入广告">
+<meta property="og:url" content="http://echo-linsq.github.io/2016/06/22/使用CSP阻止运营商插入广告/index.html">
+<meta property="og:site_name" content="EchoLinn'Blog">
+<meta property="og:description" content="1. 问题背景从2015年底开始，频繁发现考拉的WAP站点遭到篡改，服务端返回的网页被篡改并插入广告，部分广告还不堪入目，中国移动的4G网络还会直接插入其客服入口到页面底部，弹出App下载等，更有甚者直接替换js内容，导致页面工作不正常。
+从篡改的方式来看，大部分属于如下几种：
+
+在页面底部插入script标签引入广告js
+直接插入广告内容到页面
+劫持正常js请求，返回广告内容js
+
+近两年百度，">
+<meta property="og:updated_time" content="2016-08-22T02:05:35.167Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用CSP阻止运营商插入广告">
+<meta name="twitter:description" content="1. 问题背景从2015年底开始，频繁发现考拉的WAP站点遭到篡改，服务端返回的网页被篡改并插入广告，部分广告还不堪入目，中国移动的4G网络还会直接插入其客服入口到页面底部，弹出App下载等，更有甚者直接替换js内容，导致页面工作不正常。
+从篡改的方式来看，大部分属于如下几种：
+
+在页面底部插入script标签引入广告js
+直接插入广告内容到页面
+劫持正常js请求，返回广告内容js
+
+近两年百度，">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">霜巧</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">霜巧</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/project/"
+            target="_self"
+            >
+            项目
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-问题背景"><span class="toc-text">1. 问题背景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-什么是CSP？"><span class="toc-text">2. 什么是CSP？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-考拉的实现方式"><span class="toc-text">3. 考拉的实现方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-实施效果"><span class="toc-text">4. 实施效果</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-使用CSP阻止运营商插入广告" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">使用CSP阻止运营商插入广告</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.06.22</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>霜巧</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/前端安全/">前端安全</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.echolinn.com/2016/06/22/使用CSP阻止运营商插入广告/#disqus_thread"></a>
+        </span>
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="1-问题背景"><a href="#1-问题背景" class="headerlink" title="1. 问题背景"></a>1. 问题背景</h1><p>从2015年底开始，频繁发现考拉的WAP站点遭到篡改，服务端返回的网页被篡改并插入广告，部分广告还不堪入目，中国移动的4G网络还会直接插入其客服入口到页面底部，弹出App下载等，更有甚者直接替换js内容，导致页面工作不正常。</p>
+<p>从篡改的方式来看，大部分属于如下几种：</p>
+<ul>
+<li>在页面底部插入script标签引入广告js</li>
+<li>直接插入广告内容到页面</li>
+<li>劫持正常js请求，返回广告内容js</li>
+</ul>
+<p>近两年百度，淘宝，天猫都升级到了https，可以阻止这类传输过程中的内容篡改，但我们的https服务上线还需时日，只能暂时想其他办法。</p>
+<p>由于现在发现的大部分还是页面被注入广告js，所以主要策略是如何阻止广告js、图片的加载。</p>
+<h1 id="2-什么是CSP？"><a href="#2-什么是CSP？" class="headerlink" title="2. 什么是CSP？"></a>2. 什么是CSP？</h1><p>内容安全策略 (CSP, Content Security Policy) 是浏览器的一个附加的安全层，用于帮助检测和缓解某些类型的攻击，包括跨站脚本 (XSS) 和数据注入等攻击。 这些攻击可用于实现从数据窃取到网站破坏或作为恶意软件分发版本等用途。</p>
+<p>通过在服务端返回的http头中增加csp头，csp头中设定不同资源的加载策略，白名单等，限制广告内容的加载。</p>
+<p>CSP 1.0的浏览器支持度已经很好，见<a href="http://caniuse.com/#feat=contentsecuritypolicy" target="_blank" rel="external">caniuse</a></p>
+<p>目前w3c 已经推出到了level 2版本规范，浏览器支持有限。</p>
+<p>具体内容可以参考：</p>
+<p><a href="https://www.w3.org/TR/2012/CR-CSP-20121115/" target="_blank" rel="external">w3c 规范</a></p>
+<p><a href="https://imququ.com/post/content-security-policy-reference.html" target="_blank" rel="external">Content Security Policy 介绍</a></p>
+<h1 id="3-考拉的实现方式"><a href="#3-考拉的实现方式" class="headerlink" title="3. 考拉的实现方式"></a>3. 考拉的实现方式</h1><p>在服务端由后端动态向返回页面的http请求中添加 csp头， csp头的具体内容可以通过服务端配置，wap整站共用同一个csp配置。如果需要临时关闭csp，或者加入新的规则，可以调整服务端配置。 前端代码不需要改动。</p>
+<p>加入CSP后，考拉wap站返回http头类似如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Connection:keep-alive</div><div class="line">Content-Encoding:gzip</div><div class="line">Content-Language:zh-CN</div><div class="line">Content-Security-Policy:default-src * data: blob:;script-src &apos;self&apos; *.netease.com *.127.net *.126.net *.163.com *.w3t.cn *.googletagmanager.com *.google-analytics.com *.googleadservices.com *.google.com res.wx.qq.com 127.0.0.1:* &apos;unsafe-inline&apos; &apos;unsafe-eval&apos; blob:;style-src * &apos;unsafe-inline&apos; data:;img-src &apos;self&apos; *.netease.com *.127.net *.126.net *.163.com *.doubleclick.net *.googletagmanager.com *.google-analytics.com *.googleadservices.com *.google.com res.wx.qq.com 127.0.0.1:* data:</div><div class="line">Content-Type:text/html;charset=UTF-8</div><div class="line">Date:Thu, 17 Mar 2016 08:29:53 GMT</div></pre></td></tr></table></figure>
+<p>从上面的规则可以看出，主要控制了两类资源的加载，其它资源类型不限制：</p>
+<ul>
+<li>script-src： 只允许加载网易域内的内容以及统计，微信等的js。</li>
+<li>img-src： 只允许加载网易域内，或者统计服务域的内容（比如google统计服务通过获取图片的方式上传数据）。</li>
+</ul>
+<p>所以如果后续增加了新的统计服务，或者图片、JS CDN服务域名，需要调整此CSP规则，否则将被拒绝加载。</p>
+<h1 id="4-实施效果"><a href="#4-实施效果" class="headerlink" title="4. 实施效果"></a>4. 实施效果</h1><p>使用CSP，可以解决页面被插入外链JS劫持的情况，无法覆盖到所有的劫持场景（比如运营商直接篡改JS返回内容）。彻底解决内容篡改还是需要上https服务。</p>
+<p>由于此次实施，没有启用CSP的拦截报告功能，所以无法直接统计到实际拦截数据。但从目前的使用观察来看，已经可以阻止掉中国移动插入的服务入口，以及部分电信常见广告插入。</p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project/"
+              target="_self"
+              >
+              项目
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'http://echo-linsq.github.io/2016/06/22/使用CSP阻止运营商插入广告/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
