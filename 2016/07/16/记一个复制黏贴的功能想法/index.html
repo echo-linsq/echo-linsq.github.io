@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>记一个复制黏贴的功能想法 | EchoLinn&#39;Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="前端交互," />
+  
+
+  <meta name="description" content="记一个复制黏贴的功能想法（黏贴剪切板中的数字自增）起因照例是要写起因的，起因非常之简单，不知道大家有没有遇到过需要输入连续的  id= 101 ～ id = 110 这类数字的时候，这个时候能做的基本上是复制100，黏贴100，然后手动改 101,102，在我的脑海里，除了使用excel ，其他没有很方便的可以复制黏贴自增序列的办法。
+问了度娘，好像目前市面上的软件基本上也不带这个功能，哪怕是经常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一个复制黏贴的功能想法">
+<meta property="og:url" content="http://echo-linsq.github.io/2016/07/16/记一个复制黏贴的功能想法/index.html">
+<meta property="og:site_name" content="EchoLinn'Blog">
+<meta property="og:description" content="记一个复制黏贴的功能想法（黏贴剪切板中的数字自增）起因照例是要写起因的，起因非常之简单，不知道大家有没有遇到过需要输入连续的  id= 101 ～ id = 110 这类数字的时候，这个时候能做的基本上是复制100，黏贴100，然后手动改 101,102，在我的脑海里，除了使用excel ，其他没有很方便的可以复制黏贴自增序列的办法。
+问了度娘，好像目前市面上的软件基本上也不带这个功能，哪怕是经常">
+<meta property="og:image" content="http://ocph1k8rn.bkt.clouddn.com/abc30ef8-fe38-4c5a-93aa-a9e34c5911b6">
+<meta property="og:updated_time" content="2016-08-30T05:04:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记一个复制黏贴的功能想法">
+<meta name="twitter:description" content="记一个复制黏贴的功能想法（黏贴剪切板中的数字自增）起因照例是要写起因的，起因非常之简单，不知道大家有没有遇到过需要输入连续的  id= 101 ～ id = 110 这类数字的时候，这个时候能做的基本上是复制100，黏贴100，然后手动改 101,102，在我的脑海里，除了使用excel ，其他没有很方便的可以复制黏贴自增序列的办法。
+问了度娘，好像目前市面上的软件基本上也不带这个功能，哪怕是经常">
+<meta name="twitter:image" content="http://ocph1k8rn.bkt.clouddn.com/abc30ef8-fe38-4c5a-93aa-a9e34c5911b6">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">霜巧</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">霜巧</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/project/"
+            target="_self"
+            >
+            项目
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#记一个复制黏贴的功能想法（黏贴剪切板中的数字自增）"><span class="toc-text">记一个复制黏贴的功能想法（黏贴剪切板中的数字自增）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#起因"><span class="toc-text">起因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现"><span class="toc-text">实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附件"><span class="toc-text">附件</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-记一个复制黏贴的功能想法" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">记一个复制黏贴的功能想法</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.07.16</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>霜巧</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/前端交互/">前端交互</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.echolinn.com/2016/07/16/记一个复制黏贴的功能想法/#disqus_thread"></a>
+        </span>
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="记一个复制黏贴的功能想法（黏贴剪切板中的数字自增）"><a href="#记一个复制黏贴的功能想法（黏贴剪切板中的数字自增）" class="headerlink" title="记一个复制黏贴的功能想法（黏贴剪切板中的数字自增）"></a>记一个复制黏贴的功能想法（黏贴剪切板中的数字自增）</h1><h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>照例是要写起因的，起因非常之简单，不知道大家有没有遇到过需要输入连续的  id= 101 ～ id = 110 这类数字的时候，这个时候能做的基本上是复制100，黏贴100，然后手动改 101,102，在我的脑海里，除了使用excel ，其他没有很方便的可以复制黏贴自增序列的办法。</p>
+<p>问了度娘，好像目前市面上的软件基本上也不带这个功能，哪怕是经常会有录入操作的报表，报账等等系统（统统没有这个功能，心疼财务）. 很好奇这个看起来并不复杂的小功能却没人去做。</p>
+<p>作为程序员，忍不住就简单的设计了下，如果是内嵌在软件里的，可以 是这样: ctrl+ c+1 复制 -&gt;  ctrl+ v 的时候就自动 +1 ，再按就+ 2，如果 ctrl+ c+2 复制 -&gt;  ctrl+ v 的时候就自动 +2 ，再按就+ 4, 依次累加。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>一般软件也没有办法去改，于是抱着玩和学习的目的决定做个浏览器插件。由于一直后台从来没有做过前端或者插件（看了下，涉及到的东西博大精深），请大神们对我这个初心者轻喷。。</p>
+<p>一开始想通过直接编辑系统剪切板来完成，这种方法最直接，最有效 ，语句：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Document.execCommand(&apos;copy&apos;)</div></pre></td></tr></table></figure>
+<p>可惜的是，这个函数因为安全考虑只有在为数不多的版本中支持（如图）。</p>
+<p><img src="http://ocph1k8rn.bkt.clouddn.com/abc30ef8-fe38-4c5a-93aa-a9e34c5911b6" alt="alt text" title="Title"></p>
+<p>无奈只能改变策略通过JS 监听  paste事件来完成，将复制内容从事件剪切板  clipboardData (这玩意相当于浏览器剪切板，和系统的不是一回事，但是系统的会先放到这儿，再放到浏览器上) 中取出时候做处理。种方法优点是简单很多，但是缺点也很明显，举个例子，比如云笔记的输入时，对方同样监听了 paste ，并且 e.preventDefault(); 停止了消息传递，我们这个插件也就没法继续工作了 。 语句：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">document.addEventListener( &apos;paste&apos;, function (event)&#123;&#125;)</div></pre></td></tr></table></figure>
+<p>上面的方法拿到剪切板的值后，后续过程就很容易了。先判断是否是数字，再判断右上配置是否开启了自增功能，最后判断是否还是同一个值的paste操作 ， 如果都满足，统计总计paste的次数，把数字加上这个值，然后输出。。</p>
+<p>总体就是这样，很简单的一个小玩具，总之并不复杂，我觉得功能的意义大于程序的意义。有产品或者交互的同学可以考虑下在某些特定环境软件中加入这个小功能哦！</p>
+<h2 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h2><p>git 地址： <a href="https://g.hz.netease.com/hzjiangww/Chrome_CountPaste/tree/master" target="_blank" rel="external">https://g.hz.netease.com/hzjiangww/Chrome_CountPaste/tree/master</a></p>
+<p>打开后在chrome 中选择 扩展程序 -&gt; 加载压缩的扩展程序 -&gt; 右上就会有小图标 ，浏览器版本适应性啥的完全没测过，反正就当个原型吧。</p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project/"
+              target="_self"
+              >
+              项目
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'http://echo-linsq.github.io/2016/07/16/记一个复制黏贴的功能想法/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

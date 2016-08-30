@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>js各种排序算法 | EchoLinn&#39;Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="原生JS,排序算法," />
+  
+
+  <meta name="description" content="排序算法分为内部排序和外部排序，内部排序需要使用内存，下面开始探讨内部排序
+
+插入排序：直接插入排序和希尔排序
+选择排序：简单选择排序和堆排序
+交换排序：冒泡排序和快速排序
+归并排序
+基数排序
+
+直接插入排序
+基本思想：在要排序的一组数，假设前面（n-1）[n&amp;gt;=2]个数已经是排好顺序的，先要把第n个数插入到前面的有序数，使得这n个数也是排好顺序的。如此反复循环，知道全部排好顺序。
+
+//">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js各种排序算法">
+<meta property="og:url" content="http://echo-linsq.github.io/2016/08/26/js各种排序算法/index.html">
+<meta property="og:site_name" content="EchoLinn'Blog">
+<meta property="og:description" content="排序算法分为内部排序和外部排序，内部排序需要使用内存，下面开始探讨内部排序
+
+插入排序：直接插入排序和希尔排序
+选择排序：简单选择排序和堆排序
+交换排序：冒泡排序和快速排序
+归并排序
+基数排序
+
+直接插入排序
+基本思想：在要排序的一组数，假设前面（n-1）[n&amp;gt;=2]个数已经是排好顺序的，先要把第n个数插入到前面的有序数，使得这n个数也是排好顺序的。如此反复循环，知道全部排好顺序。
+
+//">
+<meta property="og:updated_time" content="2016-08-30T05:23:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js各种排序算法">
+<meta name="twitter:description" content="排序算法分为内部排序和外部排序，内部排序需要使用内存，下面开始探讨内部排序
+
+插入排序：直接插入排序和希尔排序
+选择排序：简单选择排序和堆排序
+交换排序：冒泡排序和快速排序
+归并排序
+基数排序
+
+直接插入排序
+基本思想：在要排序的一组数，假设前面（n-1）[n&amp;gt;=2]个数已经是排好顺序的，先要把第n个数插入到前面的有序数，使得这n个数也是排好顺序的。如此反复循环，知道全部排好顺序。
+
+//">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">霜巧</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">霜巧</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/project/"
+            target="_self"
+            >
+            项目
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#直接插入排序"><span class="toc-text">直接插入排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#希尔排序"><span class="toc-text">希尔排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#简单选择排序"><span class="toc-text">简单选择排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#堆排序"><span class="toc-text">堆排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#冒泡排序"><span class="toc-text">冒泡排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#快速排序"><span class="toc-text">快速排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#归并排序"><span class="toc-text">归并排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基数排序"><span class="toc-text">基数排序</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-js各种排序算法" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">js各种排序算法</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.08.26</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>霜巧</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/算法/">算法</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.echolinn.com/2016/08/26/js各种排序算法/#disqus_thread"></a>
+        </span>
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><strong>排序算法分为内部排序和外部排序，内部排序需要使用内存，下面开始探讨内部排序</strong></p>
+<ul>
+<li>插入排序：直接插入排序和希尔排序</li>
+<li>选择排序：简单选择排序和堆排序</li>
+<li>交换排序：冒泡排序和快速排序</li>
+<li>归并排序</li>
+<li>基数排序</li>
+</ul>
+<h1 id="直接插入排序"><a href="#直接插入排序" class="headerlink" title="直接插入排序"></a>直接插入排序</h1><blockquote>
+<p>基本思想：在要排序的一组数，假设前面（n-1）[n&gt;=2]个数已经是排好顺序的，先要把第n个数插入到前面的有序数，使得这n个数也是排好顺序的。如此反复循环，知道全部排好顺序。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 直接插入排序</span></div><div class="line"><span class="built_in">Array</span>.prototype.straightInsertionSort = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; <span class="keyword">this</span>.length; i++) &#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>[i] &lt; <span class="keyword">this</span>[i - <span class="number">1</span>]) &#123;</div><div class="line">            <span class="keyword">var</span> temp = <span class="keyword">this</span>[i];</div><div class="line">            <span class="keyword">for</span> (j = i - <span class="number">1</span>; j &gt;= <span class="number">0</span> &amp;&amp; <span class="keyword">this</span>[j] &gt; temp; j--) &#123;</div><div class="line">                <span class="keyword">this</span>[j + <span class="number">1</span>] = <span class="keyword">this</span>[j];</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">this</span>[j + <span class="number">1</span>] = temp;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 查看输出结果</span></div><div class="line"><span class="built_in">console</span>.info(<span class="string">"[57,68,59,52,47,38,61,53]直接插入排序结果 ："</span> + [<span class="number">57</span>, <span class="number">68</span>, <span class="number">59</span>, <span class="number">52</span>, <span class="number">47</span>, <span class="number">38</span>, <span class="number">61</span>, <span class="number">53</span>].straightInsertionSort());</div></pre></td></tr></table></figure>
+<h1 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h1><blockquote>
+<p>基本思想：算法先将要排序的一组数按某个增量d（n/2，n为要排序的个数）分成若干组，每组中记录的下标相差d。对每组中全部元素进行直接插入排序，然后再用一个较小的增量（d/2）对它进行分组，在每组中再进行直接插入排序。当增量减到1时，进行直接插入排序后，排序完成。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// 希尔排序</div><div class="line">Array.prototype.shallSort = function() &#123;</div><div class="line">    for (var fraction = Math.floor(this.length / 2); fraction &gt; 0; fraction = Math.floor(fraction / 2)) &#123;</div><div class="line">        for (var i = fraction; i &lt; this.length; i++) &#123;</div><div class="line">            for (var j = i - fraction; j &gt;= 0 &amp;&amp; this[j] &gt; this[fraction + j]; j -= fraction) &#123;</div><div class="line">                var temp = this[j];</div><div class="line">                this[j] = this[fraction + j];</div><div class="line">                this[fraction + j] = temp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return this;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 查看输出结果</div><div class="line">console.info(&quot;[57,68,59,52,47,38,61,53]希尔排序结果 　　：&quot; + [57, 68, 59, 52, 47, 38, 61, 53].shallSort());</div></pre></td></tr></table></figure>
+<h1 id="简单选择排序"><a href="#简单选择排序" class="headerlink" title="简单选择排序"></a>简单选择排序</h1><blockquote>
+<p>基本思想：在要排序的一组数中，选出最小的一个数与第一个位置的数交换，然后剩下的数当中找出最小的与第二个位置的数交换，如此寻哈un到倒数第二个数和最后一个数为止。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// 简单选择排序</div><div class="line">Array.prototype.selectSort = function() &#123;</div><div class="line">    var min, temp;</div><div class="line">    for (var i = 0; i &lt; this.length; i++) &#123;</div><div class="line">        min = i;</div><div class="line">        for (var j = i + 1; j &lt; this.length; j++) &#123;</div><div class="line">            if (this[min] &gt; this[j])</div><div class="line">                min = j;</div><div class="line">        &#125;</div><div class="line">        if (min != i) &#123;</div><div class="line">            temp = this[i];</div><div class="line">            this[i] = this[min];</div><div class="line">            this[min] = temp;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return this;</div><div class="line">&#125;;</div><div class="line">// 查看输出结果</div><div class="line">console.info(&quot;[57,68,59,52,47,38,61,53]简单选择排序结果 ：&quot; + [57, 68, 59, 52, 47, 38, 61, 53].selectSort());</div></pre></td></tr></table></figure>
+<h1 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h1><blockquote>
+<p>基本思想：堆排序是一种树形选择排序，是对直接选择排序的有效改进。</p>
+<p>具有n个元素的序列（h1,h2,…,hn),当且仅当满足（hi&gt;=h2i,hi&gt;=2i+1）或（hi&lt;=h2i,hi&lt;=2i+1）(i=1,2,…,n/2)时称之为堆。在这里只讨论满足前者条件的堆。由堆的定义可以看出，堆顶元素（即第一个元素）必为最大项（大顶堆）。完全二叉树可以很直观地表示堆的结构。堆顶为根，其它为左子树、右子树。初始时把要排序的数的序列看作是一棵顺序存储的二叉树，调整它们的存储序，使之成为一个堆，这时堆的根节点的数最大。然后将根节点与堆的最后一个节点交换。然后对前面(n-1)个数重新调整使之成为堆。依此类推，直到只有两个节点的堆，并对它们作交换，最后得到有n个节点的有序序列。从算法描述来看，堆排序需要两个过程，一是建立堆，二是堆顶与堆的最后一个元素交换位置。所以堆排序有两个函数组成。一是建堆的渗透函数，二是反复调用渗透函数实现排序的函数。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// 堆排序</div><div class="line"></div><div class="line">//以下是针对堆进行调整</div><div class="line">Array.prototype.buildMaxHeap = function() &#123;</div><div class="line">    for (var i = Math.floor(this.length / 2) - 1; i &gt;= 0; i--) &#123;</div><div class="line">        this.heapAdjust(i, this.length);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">Array.prototype.swap = function(i, j) &#123;</div><div class="line">    var tmp = this[i];</div><div class="line">    this[i] = this[j];</div><div class="line">    this[j] = tmp;</div><div class="line">&#125;;</div><div class="line">Array.prototype.heapSort = function() &#123;</div><div class="line">    this.buildMaxHeap();</div><div class="line">    for (var i = this.length - 1; i &gt; 0; i--) &#123;</div><div class="line">        this.swap(0, i);</div><div class="line">        this.heapAdjust(0, i);</div><div class="line">    &#125;</div><div class="line">    return this;</div><div class="line">&#125;;</div><div class="line">Array.prototype.heapAdjust = function(i, j) &#123;</div><div class="line">    var largest = i;</div><div class="line">    var left = 2 * i + 1;</div><div class="line">    var right = 2 * i + 2;</div><div class="line">    if (left &lt; j &amp;&amp; this[largest] &lt; this[left]) &#123;</div><div class="line">        largest = left;</div><div class="line">    &#125;</div><div class="line">    if (right &lt; j &amp;&amp; this[largest] &lt; this[right]) &#123;</div><div class="line">        largest = right;</div><div class="line">    &#125;</div><div class="line">    if (largest != i) &#123;</div><div class="line">        this.swap(i, largest);</div><div class="line">        this.heapAdjust(largest, j);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">// 查看输出结果</div><div class="line">console.info(&quot;[57,68,59,52,47,38,61,53]堆排序结果　　　 ：&quot; + [57, 68, 59, 52, 47, 38, 61, 53].heapSort());</div></pre></td></tr></table></figure>
+<h1 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h1><blockquote>
+<p>基本思想：在要排序的一组数中，对当前还未排好序的范围内的全部数，自上而下对相邻的两个数依次进行比较和调整，让较大的数往下沉，较小的往上冒。即：每当两相邻的数比较后发现它们的排序与排序要求相反时，就将它们互换。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// 冒泡排序</div><div class="line">Array.prototype.bubbleSort = function() &#123;</div><div class="line">    for (var i = 0; i &lt; this.length; i++) &#123;</div><div class="line">        for (var j = this.length; j &gt; 0; j--) &#123;</div><div class="line">            if (this[j] &lt; this[j - 1]) &#123;</div><div class="line">                var temp = this[j - 1];</div><div class="line">                this[j - 1] = this[j];</div><div class="line">                this[j] = temp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return this;</div><div class="line">&#125;</div><div class="line">// 查看输出结果</div><div class="line">console.info(&quot;[57,68,59,52,47,38,61,53]冒泡排序结果　　 ：&quot; + [57, 68, 59, 52, 47, 38, 61, 53].bubbleSort());</div></pre></td></tr></table></figure>
+<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><blockquote>
+<p>基本思想：选择一个基准元素,通常选择第一个元素或者最后一个元素,通过一趟扫描，将待排序列分成两部分,一部分比基准元素小,一部分大于等于基准元素,此时基准元素在其排好序后的正确位置,然后再用同样的方法递归地排序划分的两部分。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// 快速排序</div><div class="line">function quickSort(array) &#123;</div><div class="line">    function sort(prev, numsize) &#123;</div><div class="line">        var nonius = prev;</div><div class="line">        var j = numsize - 1;</div><div class="line">        var flag = array[prev];</div><div class="line">        if ((numsize - prev) &gt; 1) &#123;</div><div class="line">            while (nonius &lt; j) &#123;</div><div class="line">                for (; nonius &lt; j; j--) &#123;</div><div class="line">                    if (array[j] &lt; flag) &#123;</div><div class="line">                        array[nonius++] = array[j];　</div><div class="line">                        break;</div><div class="line">                    &#125;;</div><div class="line">                &#125;</div><div class="line">                for (; nonius &lt; j; nonius++) &#123;</div><div class="line">                    if (array[nonius] &gt; flag) &#123;</div><div class="line">                        array[j--] = array[nonius];</div><div class="line">                        break;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            array[nonius] = flag;</div><div class="line">            sort(0, nonius);</div><div class="line">            sort(nonius + 1, numsize);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    sort(0, array.length);</div><div class="line">    return array;</div><div class="line">&#125;</div><div class="line">// 查看输出结果</div><div class="line">console.info(&quot;[57,68,59,52,47,38,61,53]快速排序结果　　 ：&quot; + quickSort([57, 68, 59, 52, 47, 38, 61, 53]));</div></pre></td></tr></table></figure>
+<h1 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h1><blockquote>
+<p>基本排序：归并（Merge）排序法是将两个（或两个以上）有序表合并成一个新的有序表，即把待排序序列分为若干个子序列，每个子序列是有序的。然后再把有序子序列合并为整体有序序列。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// 归并排序</div><div class="line">function　 merge(left, right) &#123;</div><div class="line">    var　 result = [];</div><div class="line">    while (left.length &gt; 0 &amp;&amp; right.length &gt; 0) &#123;</div><div class="line">        if (left[0] &lt; right[0]) &#123;</div><div class="line">            result.push(left.shift());</div><div class="line">        &#125; else &#123;</div><div class="line">            result.push(right.shift());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return　 result.concat(left).concat(right);</div><div class="line">&#125;</div><div class="line"></div><div class="line">function　 mergeSort(a) &#123;</div><div class="line">    if (a.length == 1) &#123;</div><div class="line">        return　 a;</div><div class="line">    &#125;</div><div class="line">    var　 middle = Math.floor(a.length / 2),</div><div class="line">        left = a.slice(0, middle),</div><div class="line">        right = a.slice(middle);</div><div class="line">    return　 merge(mergeSort(left), mergeSort(right));</div><div class="line">&#125;</div><div class="line">// 查看输出结果</div><div class="line">console.info(&quot;[57,68,59,52,47,38,61,53]归并排序结果　　 ：&quot; + mergeSort([57, 68, 59, 52, 47, 38, 61, 53]));</div></pre></td></tr></table></figure>
+<h1 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h1><blockquote>
+<p>基本思想：将所有待比较数值（正整数）统一为同样的数位长度，数位较短的数前面补零。然后，从最低位开始，依次进行一次排序。这样从最低位排序一直到最高位排序完成以后,数列就变成一个有序序列。</p>
+</blockquote>
+<p>现在我们分析一下8种排序算法的稳定性。</p>
+<ul>
+<li><p>直接插入排序：一般插入排序，比较是从有序序列的最后一个元素开始，如果比它大则直接插入在其后面，否则一直往前比。如果找到一个和插入元素相等的，那么就插入到这个相等元素的后面。插入排序是稳定的。</p>
+</li>
+<li><p>希尔排序：希尔排序是按照不同步长对元素进行插入排序，一次插入排序是稳定的，不会改变相同元素的相对顺序，但在不同的插入排序过程中，相同的元素可能在各自的插入排序中移动，稳定性就会被破坏，所以希尔排序不稳定。</p>
+</li>
+<li><p>简单选择排序：在一趟选择，如果当前元素比一个元素小，而该小的元素又出现在一个和当前元素相等的元素后面，那么交换后稳定性就被破坏了。光说可能有点模糊，来看个小实例：858410，第一遍扫描，第1个元素8会和4交换，那么原序列中2个8的相对前后顺序和原序列不一致了，所以选择排序不稳定。</p>
+</li>
+<li><p>堆排序：堆排序的过程是从第n/2开始和其子节点共3个值选择最大(大顶堆)或者最小(小顶堆),这3个元素之间的选择当然不会破坏稳定性。但当为n/2-1, n/2-2, …这些父节点选择元素时，有可能第n/2个父节点交换把后面一个元素交换过去了，而第n/2-1个父节点把后面一个相同的元素没有交换，所以堆排序并不稳定。</p>
+</li>
+<li><p>冒泡排序：由前面的内容可知，冒泡排序是相邻的两个元素比较，交换也发生在这两个元素之间，如果两个元素相等，不用交换。所以冒泡排序稳定。</p>
+</li>
+<li><p>快速排序：在中枢元素和序列中一个元素交换的时候，很有可能把前面的元素的稳定性打乱。还是看一个小实例：6 4 4 5 4 7 8 9，第一趟排序，中枢元素6和第三个4交换就会把元素4的原序列破坏，所以快速排序不稳定。</p>
+</li>
+<li><p>归并排序：在分解的子列中，有1个或2个元素时，1个元素不会交换，2个元素如果大小相等也不会交换。在序列合并的过程中，如果两个当前元素相等时，我们把处在前面的序列的元素保存在结果序列的前面，所以，归并排序也是稳定的。</p>
+</li>
+<li><p>基数排序：是按照低位先排序，然后收集；再按照高位排序，然后再收集；依次类推，直到最高位。有时候有些属性是有优先级顺序的，先按低优先级排序，再按高优先级排序，最后的次序就是高优先级高的在前，高优先级相同的低优先级高的在前。基数排序基于分别排序，分别收集，所以是稳定的。</p>
+</li>
+</ul>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project/"
+              target="_self"
+              >
+              项目
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'http://echo-linsq.github.io/2016/08/26/js各种排序算法/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

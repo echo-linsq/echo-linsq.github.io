@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>HTTPS苦旅之初步了解 | EchoLinn&#39;Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="HTTPS,前端引擎," />
+  
+
+  <meta name="description" content="HTTPS苦旅之初步了解
+随着国内网络环境的持续恶化，各种篡改和劫持层出不穷，越来越多的网站选择了全站 HTTPS。此外，免费提供证书服务的 Let’s Encrypt 项目也已正式开放，HTTPS 很快就会成为 WEB 必选项，我们的跨境电商用的就是这个证书服务。先来看看HTTPS到底是何方神圣吧。
+1 HTTPS概述HTTPS就是在安全的传输层上发送的HTTP。HTTPS不会将未加密的HTTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTPS苦旅之初步了解">
+<meta property="og:url" content="http://echo-linsq.github.io/2016/08/20/HTTPS苦旅之初步了解/index.html">
+<meta property="og:site_name" content="EchoLinn'Blog">
+<meta property="og:description" content="HTTPS苦旅之初步了解
+随着国内网络环境的持续恶化，各种篡改和劫持层出不穷，越来越多的网站选择了全站 HTTPS。此外，免费提供证书服务的 Let’s Encrypt 项目也已正式开放，HTTPS 很快就会成为 WEB 必选项，我们的跨境电商用的就是这个证书服务。先来看看HTTPS到底是何方神圣吧。
+1 HTTPS概述HTTPS就是在安全的传输层上发送的HTTP。HTTPS不会将未加密的HTTP">
+<meta property="og:image" content="http://ocph1k8rn.bkt.clouddn.com/26a622dd-86b5-4731-a666-6e28d4a54653">
+<meta property="og:image" content="http://ocph1k8rn.bkt.clouddn.com/deb3c2f5-83a0-47e4-bc03-09aac9709ea8">
+<meta property="og:image" content="http://ocph1k8rn.bkt.clouddn.com/d1de429f-d2a0-4ea2-b396-007a6cf10a96">
+<meta property="og:image" content="http://ocph1k8rn.bkt.clouddn.com/d8af0e66-5976-499b-9da4-732c81d87df2">
+<meta property="og:updated_time" content="2016-08-30T05:57:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTPS苦旅之初步了解">
+<meta name="twitter:description" content="HTTPS苦旅之初步了解
+随着国内网络环境的持续恶化，各种篡改和劫持层出不穷，越来越多的网站选择了全站 HTTPS。此外，免费提供证书服务的 Let’s Encrypt 项目也已正式开放，HTTPS 很快就会成为 WEB 必选项，我们的跨境电商用的就是这个证书服务。先来看看HTTPS到底是何方神圣吧。
+1 HTTPS概述HTTPS就是在安全的传输层上发送的HTTP。HTTPS不会将未加密的HTTP">
+<meta name="twitter:image" content="http://ocph1k8rn.bkt.clouddn.com/26a622dd-86b5-4731-a666-6e28d4a54653">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">霜巧</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">霜巧</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/project/"
+            target="_self"
+            >
+            项目
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-HTTPS概述"><span class="toc-text">1 HTTPS概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-HTTPS方案"><span class="toc-text">2 HTTPS方案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-建立安全传输"><span class="toc-text">3 建立安全传输</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-SSL握手"><span class="toc-text">4 SSL握手</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-服务器证书"><span class="toc-text">5 服务器证书</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-HTTPS苦旅之初步了解" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">HTTPS苦旅之初步了解</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.08.20</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>霜巧</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/协议/">协议</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.echolinn.com/2016/08/20/HTTPS苦旅之初步了解/#disqus_thread"></a>
+        </span>
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><strong>HTTPS苦旅之初步了解</strong></p>
+<p>随着国内网络环境的持续恶化，各种篡改和劫持层出不穷，越来越多的网站选择了全站 HTTPS。此外，免费提供证书服务的 Let’s Encrypt 项目也已正式开放，HTTPS 很快就会成为 WEB 必选项，我们的跨境电商用的就是这个证书服务。先来看看HTTPS到底是何方神圣吧。</p>
+<h1 id="1-HTTPS概述"><a href="#1-HTTPS概述" class="headerlink" title="1 HTTPS概述"></a>1 HTTPS概述</h1><p>HTTPS就是在安全的传输层上发送的HTTP。HTTPS不会将未加密的HTTP报文直接发送给TCP进行传输，而是先将其发送给一个安全层SSL(Secure Sockets Layer 安全套接层)或TLS(Transport Layer Security 安全传输层)，对其进行加密，如图1所示：</p>
+<center><img src="http://ocph1k8rn.bkt.clouddn.com/26a622dd-86b5-4731-a666-6e28d4a54653" alt="alt text" title="Title"><br></center><br><center>图1 HTTP安全传输层</center>
+
+<h1 id="2-HTTPS方案"><a href="#2-HTTPS方案" class="headerlink" title="2 HTTPS方案"></a>2 HTTPS方案</h1><p>现在安全HTTPS是可选的，因此对Web服务器发起请求时，需要有一种方式来告知Web服务器去执行HTTP协议的安全版本，这个方案就是在URL中实现。</p>
+<p>通常情况下，非安全HTTP的URL前缀为http:</p>
+<p><a href="http://www.kaola.com" target="_blank" rel="external">http://www.kaola.com</a></p>
+<p>在安全HTTPS协议中，URL的前缀为https:</p>
+<p><a href="https://www.kaola.com" target="_blank" rel="external">https://www.kaola.com</a></p>
+<p>一个客户端（比如Web浏览器）对某Web资源请求执行某事务时，它会去检查URL的协议：</p>
+<ul>
+<li>如果URL的协议为HTTP，客户端就会打开一条默认情况下到服务器80端口的连接，并向其发送老的HTTP命令，如图2(a)；</li>
+<li>如果URL的协议为HTTPS，客户端就会打开一条默认情况下到服务器443端口的连接，然后与服务器“握手”，以二进制格式与服务器交换一些SSL安全参数，附上加密的HTTP命令，如图2(b)所示。</li>
+</ul>
+<center><img src="http://ocph1k8rn.bkt.clouddn.com/deb3c2f5-83a0-47e4-bc03-09aac9709ea8" alt="alt text" title="Title"><br></center><br><center>图2 HTTP和HTTPS端口号</center>
+
+
+<p>SSL是个二进制协议，与HTTP完全不同，其流量通常是由443端口承载的。如果SSL和HTTP流量都从80端口到达，大部分Web服务器会将二进制的SSL流量理解为错误的HTTP并关闭连接。</p>
+<h1 id="3-建立安全传输"><a href="#3-建立安全传输" class="headerlink" title="3 建立安全传输"></a>3 建立安全传输</h1><p>在未加密HTTP中，客户端会打开一条到Web服务器80端口的TCP连接，发送一条请求报文，接收一条响应报文，关闭连接，如图3(a)所示。</p>
+<p>由于SSL安全层的存在，HTTPS中这个过程会略为复杂一些。在HTTPS中，客户端首先打开一条到Web服务器443端口的连接。一旦建立了TCP连接，客户端和服务器就会初始化SSL层，对加密参数进行沟通，并交换密钥。握手完成之后，SSL初始化就完成了，客户端就可以将请求报文发送给安全层了。再将这些报文发送给TCP之前，要先对其进行加密。如图3(b)所示。</p>
+<center><img src="http://ocph1k8rn.bkt.clouddn.com/d1de429f-d2a0-4ea2-b396-007a6cf10a96" alt="alt text" title="Title"><br></center>
+
+<center>图3 HTTP和HTTPS事务</center>
+
+
+<h1 id="4-SSL握手"><a href="#4-SSL握手" class="headerlink" title="4 SSL握手"></a>4 SSL握手</h1><p>在通过网络传输任何已加密的HTTP数据之前，SSL已经发送了一组握手数据来建立通信连接了，如图4所示。</p>
+<center><img src="http://ocph1k8rn.bkt.clouddn.com/d8af0e66-5976-499b-9da4-732c81d87df2" alt="alt text" title="Title"><br></center>
+
+<center>图4 （简化版）SSL握手</center>
+
+<p>这是SSL握手的简化版本。根据SSL的使用方式，握手过程可能会复杂一些，但总的思想就是这样。</p>
+<h1 id="5-服务器证书"><a href="#5-服务器证书" class="headerlink" title="5 服务器证书"></a>5 服务器证书</h1><p>SSL支持双向认证，将服务器证书承载回客户端，再将客户端的证书回送给服务器。而现在，浏览时并不经常使用客户端证书。大部分用户甚至都没有自己的客户端证书。服务器可以要求使用客户端证书，但实际中很少出现这种情况。比如有些组织的内部网络会使用客户端证书来控制员工对信息的访问。</p>
+<p>另一方面，安全HTTPS事务总是要求使用服务器证书的。在一个Web服务器上执行安全事务，比如提交信用卡信息时，用户总是希望是在与自己所认识的那个组织对话。由知名权威机构签发的服务器证书可以帮助用户在发送信用卡或私人信息之前评估对服务器的信任度。</p>
+<p>服务器证书是一个显示了组织的名称、地址、 服务器DNS域名以及其他信息的X.509 v3派生证书。用户和其所用的客户端软件可以检查证书，以确保所有的信息都是可信的。</p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project/"
+              target="_self"
+              >
+              项目
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'http://echo-linsq.github.io/2016/08/20/HTTPS苦旅之初步了解/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
