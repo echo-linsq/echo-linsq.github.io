@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript闭包 | EchoLinn&#39;Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="javascript," />
+  
+
+  <meta name="description" content="昨天去腾讯溜了一圈，去深圳总部参加2017届TST专场面试，出了道Javascript闭包的题目，这里稍微写一下。
+在Javascript中，函数内部是可以直接读取全局变量的。
+　var n = 1;　　function f()&amp;#123;　　　　alert(n);　　&amp;#125;　　f();
+闭包
+“闭包”（closure）的概念起源于离散数学。在Javascript中“官方”的解释是：所谓“闭">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript闭包">
+<meta property="og:url" content="http://echo-linsq.github.io/2016/09/04/JavaScript闭包/index.html">
+<meta property="og:site_name" content="EchoLinn'Blog">
+<meta property="og:description" content="昨天去腾讯溜了一圈，去深圳总部参加2017届TST专场面试，出了道Javascript闭包的题目，这里稍微写一下。
+在Javascript中，函数内部是可以直接读取全局变量的。
+　var n = 1;　　function f()&amp;#123;　　　　alert(n);　　&amp;#125;　　f();
+闭包
+“闭包”（closure）的概念起源于离散数学。在Javascript中“官方”的解释是：所谓“闭">
+<meta property="og:updated_time" content="2016-09-04T14:48:00.951Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript闭包">
+<meta name="twitter:description" content="昨天去腾讯溜了一圈，去深圳总部参加2017届TST专场面试，出了道Javascript闭包的题目，这里稍微写一下。
+在Javascript中，函数内部是可以直接读取全局变量的。
+　var n = 1;　　function f()&amp;#123;　　　　alert(n);　　&amp;#125;　　f();
+闭包
+“闭包”（closure）的概念起源于离散数学。在Javascript中“官方”的解释是：所谓“闭">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">霜巧</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">霜巧</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/project/"
+            target="_self"
+            >
+            项目
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-JavaScript闭包" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JavaScript闭包</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.09.04</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>霜巧</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/原生JS/">原生JS</a>
+  </span>
+
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.echolinn.com/2016/09/04/JavaScript闭包/#disqus_thread"></a>
+        </span>
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>昨天去腾讯溜了一圈，去深圳总部参加2017届TST专场面试，出了道Javascript闭包的题目，这里稍微写一下。</p>
+<p>在Javascript中，函数内部是可以直接读取全局变量的。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">　<span class="keyword">var</span> n = <span class="number">1</span>;</div><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　alert(n);</div><div class="line">　　&#125;</div><div class="line">　　f();</div></pre></td></tr></table></figure>
+<p><strong>闭包</strong></p>
+<p>“闭包”（closure）的概念起源于离散数学。在Javascript中“官方”的解释是：所谓“闭包”，指的是一个拥有许多变量和绑定了这些变量的环境的表达式（通常是一个函数），因而这些变量也是该表达式的一部分。</p>
+<p><strong>闭包的特点</strong></p>
+<ul>
+<li>作为一个函数变量的一个引用，当函数返回时，其处于激活状态。</li>
+<li>一个闭包就是当一个函数返回时没有释放资源的栈区。javascript允许使用内部函数位于另一个函数的函数体内。而且，这些内部函数可以访问它们所在的外部函数中声明的所有局部变量、参数和声明其的内部函数。当其中一个这样的内部函数在包含它们的外部函数之外被调用时，就会形成闭包。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">closure</span>(<span class="params"></span>)</span>&#123;</div><div class="line"><span class="keyword">var</span> str = <span class="string">"I'm Cri."</span>;</div><div class="line"><span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">alert(str);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> Obj = closure();</div><div class="line">Obj();</div></pre></td></tr></table></figure>
+<p>在上面代码中，str是局部变量，若str在closure函数调用完成以后不能再被访问，则在函数执行完成后str将被释放。但是由于函数closure返回了一个内部函数，且这个返回的函数引用了str变量，导致了str可能会在closure函数执行完成以后还会被引用，所以str所占用的资源不会被回收。这样closure就形成了一个闭包。</p>
+<p>JavaScript的闭包非常重要，只有深入理解其意义才能使得程序更加安全：）</p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project/"
+              target="_self"
+              >
+              项目
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'http://echo-linsq.github.io/2016/09/04/JavaScript闭包/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
